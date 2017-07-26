@@ -21,6 +21,9 @@ UI@data$Total <- score$Total
 UI@data$RelativeTotal <- score$RelativeTotal
 UI@data$Rank <- score$Rank
 
+# Setup plot layout
+layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE), widths = c(2,1), heights = c(1,1))
+
 # Plot UIs and color by rank
 plot(FirePerim, main="Unburned Islands Importance rank")
 col1 <- colorRampPalette(c("red", "orange", "yellow", "green"))
@@ -29,6 +32,24 @@ col3 <- col2[rank(score$Rank, ties.method = "min")]
 plot(UI, col=col3, border=col3, add=T)
 legend("topleft", title= "Unburned Island Importance", legend = c("Highly important", "", "", "Less important"), 
        fill = c("red", "orange", "yellow", "green"), cex = 0.9)
+
+# Plot top 10%
+plot(FirePerim, main="Most important (10%)")
+plot(UI[UI$Rank < round(length(UI@data$Total)/10),], col="red", border="red", add=T)
+
+# Plot score distribution
+hist(score$Total, main="Distribution of Final Scores", xlab="Importance score")
+
+# Plot Distributions
+# Setup plot layout
+layout(matrix(c(1,2,3,4,5,6), 2, 3, byrow = TRUE))
+hist(UI@data$score.isol, main="Isolation", xlab="Isolation score")
+hist(UI@data$score.habitat, main="Critical Habitat", xlab="Critical Habitat score", breaks=seq(from=0, to=1, by=0.1))
+hist(UI@data$score.invasive, main="Invasive Species", xlab="Invasive Species score")
+hist(UI@data$score.RelAbundance, main="Cover TypeAbundance", xlab="Relative Abundance score", breaks=seq(from=0, to=1, by=0.1))
+hist(UI@data$score.building, main="Buildings", xlab="Building score", breaks=seq(from=0, to=1, by=0.1))
+hist(UI@data$score.age, main="Stand Age", xlab="Stand age score", breaks=seq(from=0, to=1, by=0.1))
+
 
 # Write to file
 writeOGR(obj = UI, dsn= paste0(getwd(), "/Output"), layer = "UI.shp", driver = "ESRI Shapefile", overwrite_layer = T)
