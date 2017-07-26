@@ -6,6 +6,7 @@ library(sp)
 library(rgeos)
 library(raster)
 library(rgdal)
+library(matrixStats)
 
 # Default projection
 prj <- "+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
@@ -15,15 +16,15 @@ us <- getData("GADM", country="USA", level=1)
 
 # Extract states
 pnwstates <- c("Washington", "Oregon", "Idaho")
-PNW <- us[match(toupper(pnwstates),toupper(us$NAME_1)),]
-PNW <- spTransform(PNW, prj)
-plot(PNW)
+pnw <- us[match(toupper(pnwstates),toupper(us$NAME_1)),]
+pnw <- spTransform(pnw, prj)
+plot(pnw)
 
 # Load Fire Perimeter
-FirePerim <- readOGR("Datasets/Table Mountain/TableMountainComplex.shp")
+fire.perim <- readOGR("Datasets/Table Mountain/TableMountainComplex.shp")
 
 # Load UI
-UI <- readOGR("Datasets/Table Mountain/TableUI.shp")
+ui <- readOGR("Datasets/Table Mountain/TableUI.shp")
 
 # Cleanup intermediates
 rm(pnwstates, us, prj)
