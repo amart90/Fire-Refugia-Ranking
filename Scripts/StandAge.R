@@ -47,3 +47,6 @@ lines(loess(fAge(x) ~ x))
 
 # Plot score distribution
 hist(score.age, main="Distribution of Scores", xlab="Stand age score", breaks=seq(from=0, to=1, by=0.1))
+
+# Cleanup intermediates
+rm(age, age.ui, col1, col2, col3, col4, col5, col6, col7, fire.proj, ui.proj, id, score.age, r, x)

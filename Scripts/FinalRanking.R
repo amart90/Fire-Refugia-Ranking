@@ -1,13 +1,5 @@
 # Create dataframe from UI
-score <- data.frame(UI@data)
-
-#insert dummy data
-#score$score.a <- 1:14
-#score$score.b <- c(100,12,386,35,3,87,5,7,45,43,12,57,12,56)
-#score$score.d <- 3:16
-#score$test.a <- 1:14
-#score$test.b <- 2:15
-
+score <- data.frame(ui@data)
 
 # Weight data?
 
@@ -17,42 +9,48 @@ score$RelativeTotal <- round((score$Total / sum(score$Total)) * 100, 2)
 score$Rank <- rank(-(score$Total))
 
 # Add to SpatialPolygonsDataFrame
-UI@data$Total <- score$Total
-UI@data$RelativeTotal <- score$RelativeTotal
-UI@data$Rank <- score$Rank
+ui@data$Total <- score$Total
+ui@data$RelativeTotal <- score$RelativeTotal
+ui@data$Rank <- score$Rank
 
 # Setup plot layout
 layout(matrix(c(1,2,1,3), 2, 2, byrow = TRUE), widths = c(2,1), heights = c(1,1))
 
 # Plot UIs and color by rank
-plot(FirePerim, main="Unburned Islands Importance rank")
+plot(fire.perim, main="Unburned Islands Importance rank")
 col1 <- colorRampPalette(c("red", "orange", "yellow", "green"))
 col2 <- col1(length(score$Rank))
 col3 <- col2[rank(score$Rank, ties.method = "min")]
-plot(UI, col=col3, border=col3, add=T)
+plot(ui, col=col3, border=col3, add=T)
 legend("topleft", title= "Unburned Island Importance", legend = c("Highly important", "", "", "Less important"), 
        fill = c("red", "orange", "yellow", "green"), cex = 0.9)
 
 # Plot top 10%
-plot(FirePerim, main="Most important (10%)")
-plot(UI[UI$Rank < round(length(UI@data$Total)/10),], col="red", border="red", add=T)
+plot(fire.perim, main="Most important (10%)")
+plot(ui[ui$Rank < round(length(ui@data$Total)/10),], col="red", border="red", add=T)
 
 # Plot score distribution
 hist(score$Total, main="Distribution of Final Scores", xlab="Importance score")
 
-# Plot Distributions
+# Plot distributions in 2x3 grid
 # Setup plot layout
 layout(matrix(c(1,2,3,4,5,6), 2, 3, byrow = TRUE))
-hist(UI@data$score.isol, main="Isolation", xlab="Isolation score")
-hist(UI@data$score.habitat, main="Critical Habitat", xlab="Critical Habitat score", breaks=seq(from=0, to=1, by=0.1))
-hist(UI@data$score.invasive, main="Invasive Species", xlab="Invasive Species score")
-hist(UI@data$score.RelAbundance, main="Cover TypeAbundance", xlab="Relative Abundance score", breaks=seq(from=0, to=1, by=0.1))
-hist(UI@data$score.building, main="Buildings", xlab="Building score", breaks=seq(from=0, to=1, by=0.1))
-hist(UI@data$score.age, main="Stand Age", xlab="Stand age score", breaks=seq(from=0, to=1, by=0.1))
+
+# Plot histograms
+hist(ui@data$score.isol, main="Isolation", xlab="Isolation score")
+hist(ui@data$score.habitat, main="Critical Habitat", xlab="Critical Habitat score", ylab="", 
+     breaks=seq(from=0, to=1, by=0.1))
+hist(ui@data$score.invasive, main="Invasive Species", xlab="Invasive Species score", ylab="")
+hist(ui@data$score.RelAbundance, main="Cover TypeAbundance", xlab="Relative Abundance score", 
+     breaks=seq(from=0, to=1, by=0.1))
+hist(ui@data$score.building, main="Buildings", xlab="Building score", ylab="", 
+     breaks=seq(from=0, to=1, by=0.1))
+hist(ui@data$score.age, main="Stand Age", xlab="Stand age score", ylab="", 
+     breaks=seq(from=0, to=1, by=0.1))
 
 
 # Write to file
-writeOGR(obj = UI, dsn= paste0(getwd(), "/Output"), layer = "UI.shp", driver = "ESRI Shapefile", overwrite_layer = T)
+writeOGR(obj = ui, dsn= paste0(getwd(), "/Output"), layer = "UI.shp", driver = "ESRI Shapefile", overwrite_layer = T)
 write.csv(score, file="Output/RefugiaRanking.csv", row.names=F)
 
 # Cleanup intermediates
