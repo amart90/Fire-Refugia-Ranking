@@ -1,5 +1,6 @@
 #set up WD
-setwd("D:/Refugia/Ranking")
+#setwd("C:/Users/PyroGeo/Refugia/Ranking") # school computer
+#setwd("D:/Refugia/Ranking") # home computer
 
 #load libraries
 library(sp)
