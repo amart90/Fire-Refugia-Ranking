@@ -1,0 +1,6 @@
+28096:
+  score.building: 0
+  score.habitat: 0.5
+  score.invasive: 0.9936204387768
+  score.isol: 0
+  score.RelAbundance: 0.510568094873757
