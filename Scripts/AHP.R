@@ -2,8 +2,9 @@ library(devtools)
 library(data.tree)
 devtools::install_github("gluc/ahp", build_vignettes = TRUE)
 library(ahp)
-ahp.file <- Load("test1.txt")
+ahp.file <- Load("test2.txt")
 Calculate(ahp.file)
+AnalyzeTable(ahp.file)
 vignette("file-format", package = "ahp")
 
 

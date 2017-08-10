@@ -1,0 +1,111 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   Output/pnw.shp.dbf
+#	new file:   Output/pnw.shp.prj
+#	new file:   Output/pnw.shp.shp
+#	new file:   Output/pnw.shp.shx
+#	modified:   RefugiaPresentation2.pptx
+#	renamed:    Scripts/Buildings.R -> Scripts/1-Buildings.R
+#	renamed:    Scripts/CriticalHabitat.R -> Scripts/1-CriticalHabitat.R
+#	renamed:    Scripts/FinalRanking.R -> Scripts/1-FinalRanking.R
+#	renamed:    Scripts/Invasive.R -> Scripts/1-Invasive.R
+#	renamed:    Scripts/Isolation.R -> Scripts/1-Isolation.R
+#	renamed:    Scripts/RelAbundance.R -> Scripts/1-RelAbundance.R
+#	renamed:    Scripts/StandAge.R -> Scripts/1-StandAge.R
+#	modified:   Scripts/AHP.R
+#	modified:   Scripts/AHPtext.R
+#	new file:   Scripts/Overlap1.R
+#	new file:   Scripts/Roads.R
+#	modified:   Scripts/Startup.R
+#	new file:   Working/Count Overlapping Polygons.tbx
+#	new file:   Working/info/arc.dir
+#	modified:   test1.txt
+#	new file:   test2.txt
+#	new file:   test3.txt
+#
+# Untracked files:
+#	Working/lcovergird.ige
+#	Working/lcovergird.img
+#	Working/lcovergird.img.aux.xml
+#	Working/pers.cpg
+#	Working/pers.dbf
+#	Working/pers.prj
+#	Working/pers.sbn
+#	Working/pers.sbx
+#	Working/pers.shp
+#	Working/pers.shp.xml
+#	Working/pers.shx
+#	Working/pers_count.cpg
+#	Working/pers_count.dbf
+#	Working/pers_count.prj
+#	Working/pers_count.sbn
+#	Working/pers_count.sbx
+#	Working/pers_count.shp
+#	Working/pers_count.shp.xml
+#	Working/pers_count.shx
+#	Working/pers_dissolve.cpg
+#	Working/pers_dissolve.dbf
+#	Working/pers_dissolve.prj
+#	Working/pers_dissolve.sbn
+#	Working/pers_dissolve.sbx
+#	Working/pers_dissolve.shp
+#	Working/pers_dissolve.shp.xml
+#	Working/pers_dissolve.shx
+#	Working/pnw_dis.cpg
+#	Working/pnw_dis.dbf
+#	Working/pnw_dis.prj
+#	Working/pnw_dis.sbn
+#	Working/pnw_dis.sbx
+#	Working/pnw_dis.shp
+#	Working/pnw_dis.shp.xml
+#	Working/pnw_dis.shx
+#	Working/road1.cpg
+#	Working/road1.dbf
+#	Working/road1.prj
+#	Working/road1.sbn
+#	Working/road1.sbx
+#	Working/road1.shp
+#	Working/road1.shp.xml
+#	Working/road1.shx
+#	Working/roadRasterWA.ige
+#	Working/roadRasterWA.img
+#	Working/roadRasterWA.img.aux.xml
+#	Working/roads_ID.cpg
+#	Working/roads_ID.dbf
+#	Working/roads_ID.prj
+#	Working/roads_ID.sbn
+#	Working/roads_ID.sbx
+#	Working/roads_ID.shp
+#	Working/roads_ID.shp.xml
+#	Working/roads_ID.shx
+#	Working/roads_OR.cpg
+#	Working/roads_OR.dbf
+#	Working/roads_OR.prj
+#	Working/roads_OR.sbn
+#	Working/roads_OR.sbx
+#	Working/roads_OR.shp
+#	Working/roads_OR.shp.xml
+#	Working/roads_OR.shx
+#	Working/roads_WA.cpg
+#	Working/roads_WA.dbf
+#	Working/roads_WA.prj
+#	Working/roads_WA.sbn
+#	Working/roads_WA.sbx
+#	Working/roads_WA.shp
+#	Working/roads_WA.shp.xml
+#	Working/roads_WA.shx
+#	Working/roads_pnw.cpg
+#	Working/roads_pnw.dbf
+#	Working/roads_pnw.prj
+#	Working/roads_pnw.sbn
+#	Working/roads_pnw.sbx
+#	Working/roads_pnw.shp
+#	Working/roads_pnw.shp.xml
+#	Working/roads_pnw.shx
+#
+

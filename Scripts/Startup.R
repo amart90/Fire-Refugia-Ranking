@@ -1,6 +1,7 @@
 #set up WD
 #setwd("C:/Users/PyroGeo/Refugia/Ranking") # school computer
-#setwd("D:/Refugia/Ranking") # home computer
+setwd("D:/Refugia/Ranking") # home computer
+#setwd("C:/Users/Anthony/Refugia/Ranking") # laptop
 
 #load libraries
 library(sp)
@@ -28,4 +29,6 @@ fire.perim <- readOGR("Datasets/Table Mountain/TableMountainComplex.shp")
 ui <- readOGR("Datasets/Table Mountain/TableUI.shp")
 
 # Cleanup intermediates
-rm(pnwstates, us, prj)
+rm(pnwstates, us)
+
+writeOGR(pnw, dsn= paste0(getwd(), "/Output"), layer = "pnw", driver = "ESRI Shapefile", overwrite_layer = T)
