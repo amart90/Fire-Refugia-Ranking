@@ -1,6 +1,6 @@
 #set up WD
-#setwd("C:/Users/PyroGeo/Refugia/Ranking") # school computer
-setwd("D:/Refugia/Ranking") # home computer
+setwd("C:/Users/PyroGeo/Refugia/Ranking") # school computer
+#setwd("D:/Refugia/Ranking") # home computer
 #setwd("C:/Users/Anthony/Refugia/Ranking") # laptop
 
 #load libraries
@@ -27,6 +27,9 @@ fire.perim <- readOGR("Datasets/Table Mountain/TableMountainComplex.shp")
 
 # Load UI
 ui <- readOGR("Datasets/Table Mountain/TableUI.shp")
+
+# Create score dataframe
+scores.df <- data.frame(ID = ui@data$ID)
 
 # Cleanup intermediates
 rm(pnwstates, us)
