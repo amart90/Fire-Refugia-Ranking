@@ -42,6 +42,8 @@ r.abun <- data.frame(lcover.mode=r.uniq, r.rel=r.rel)
 ui.list <- data.frame(r.mode, ID = ui@data$ID)
 ui.list <- merge(ui.list, r.abun, by.x="r.mode", by.y="lcover.mode")
 ui.list <- ui.list[order(ui.list$ID), ]
+
+# Write to DF and UI
 scores.df$score.RelAbundance <- ui.list$r.rel
 ui@data$score.RelAbundance <- ui.list$r.rel
 
@@ -55,11 +57,12 @@ col4 <- col4[order(col4$ID),]
 col5 <- as.character(col4$col2)
 plot(ui, add=T, col=col5, border=col5)
 legend("topleft", title= "Proportion of cover type", 
-       legend = c(paste0(round(100*max(r.rel)), "%"), "", "", paste0(round(100*min(r.rel)), "%")), 
+       legend = c(paste0("High (", round(100*max(r.rel)), "%)"), "", "", paste0("Low (", round(100*min(r.rel)), "%)")), 
        fill = c("green", "yellow", "orange", "red"), cex = 0.9)
 
 # Plot score distribution
-hist(ui@data$score.RelAbundance, main="Distribution of Scores", xlab="Relative Abundance score", breaks=seq(from=0, to=1, by=0.1))
+hist(ui@data$score.RelAbundance, main="Distribution of Scores", xlab = "Relative Abundance score", breaks=seq(from=0, to=1, by=0.1))
+hist(ui.list$r.mode, main="Distribution of Land Cover Types", xlab = "Land Cover ID")
 
 # Plot landcover types - turned off (#)
 #plot(lcover.fire, breaks = unique(lcover.fire), col= rainbow(24), 
@@ -68,4 +71,4 @@ hist(ui@data$score.RelAbundance, main="Distribution of Scores", xlab="Relative A
 #Cleanup intermediates
 rm(lcover.WA, lcover.OR, lcover.ID, fire.proj, lcover.fire, lcover.ui, lcover.freq, lcover.sort, Mode,
    r.vals, r.mode, r.uniq, r.area, r.rel, r.abun, ui.list, ui.proj, col1, col2, col3, col4, 
-   col5, score.abun, x)
+   col5, score.abun)

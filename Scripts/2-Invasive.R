@@ -11,12 +11,10 @@ ui.proj <- spTransform(ui, projection(inv.pnw))
 #inv <- crop(inv.pnw, fire.proj)
 #writeOGR(obj = inv, dsn= paste0(getwd(), "/Datasets/Invasive/tbl"), layer = "inv", driver = "ESRI Shapefile", overwrite_layer = T)
 
-
 # Find area of total invasive species range (considering multiple species) within UI
 inv.ui <- gIntersection(ui.proj, inv, byid = T)
 ui.over <- over(inv.ui, ui.proj, returnList = F)
 inv.ui.area <- sapply(slot(inv.ui, "polygons"), function(i) slot(i, "area"))
-
 inv.df <- data.frame(ID = ui.over$ID,
                      inv.area = inv.ui.area)
 inv.df <- aggregate(inv.area ~ ID, data = inv.df, FUN = sum)
@@ -34,21 +32,18 @@ scores.df$score.invasive <- inv.df$prop.inv
 ui@data$score.invasive <- inv.df$prop.inv
 
 # Plot invasive species
-inv.proj <- spTransform(inv, projection(fire.perim))
+col1 <- colorRampPalette(c("green", "yellow", "orange", "red"))
+col2 <- col1(length(scores.df$score.invasive))
+col3 <- col2[rank(scores.df$score.invasive, ties.method = "min")]
 plot(fire.perim, main="Invasive Species Cover")
-plot(inv.proj, add=T, col="red", border="red")
-plot(ui, add=T, col=4*as.numeric(inv.prop > 0), border=4*as.numeric(inv.prop > 0))
-plot(fire.perim, add=T)
-legend("topleft", legend = c("Invasive plant species", "UI with invasive sp."), 
-       fill = c("red", "blue"), cex = 0.9)
-
-# Plot scoring function
-x <- seq(0, 1.5, by=0.1)
-plot(fInv(x) ~ x, main="Scoring function", xlab="Proportion of invasive species cover", ylab="Score", type="n")
-lines(loess(fInv(x) ~ x))
+inv.proj <- spTransform(inv, projection(ui))
+plot(inv.proj, col="cornsilk3", add= TRUE, border="cornsilk3")
+plot(ui, add=T, col=col3, border=col3)
+legend("topleft", title= "Proportion of Invasive Species Cover", legend = c("Low", "", "", "High", "Invasive Species Cover"), 
+       fill = c("green", "yellow", "orange", "red", "cornsilk3"), cex = 0.9)
 
 # Plot score distribution
-hist(score.invasive, main="Distribution of Scores", xlab="Invasive Species score")
+hist(scores.df$score.invasive, main="Distribution of Scores", xlab="Invasive Species score")
 
 # Cleanup intermediates
-rm(inv.pnw, inv, fire.proj, ui.proj, inv.ui, inv.ui.area, inv.ui2, inv.ui3, inv.proj, score.invasive, ui.area, x, inv.prop, h)
+rm(inv.pnw, inv, fire.proj, ui.proj, inv.ui, inv.ui.area, inv.proj, ui.area, inv.df, col1, col2, col3, ui.over, ui.inv)
