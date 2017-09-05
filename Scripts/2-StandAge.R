@@ -35,6 +35,6 @@ legend("topleft", title= "Mean Stand Age (yrs)", legend = c(min(ui.age, na.rm = 
 
 # Plot score distribution
 hist(ui.age, main="Distribution of Scores", xlab="Stand age")
-round(1:10 * max(ui.age)/10)
+
 # Cleanup intermediates
-rm(age, age.ui, col1, col2, col3, col4, col5, col6, col7, fire.proj, ui.proj, id, ui.age)
+rm(resil, resil.ui, col1, col2, col3, col4, col5, col6, col7, fire.proj, ui.proj, id, ui.resil)

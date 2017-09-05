@@ -1,14 +1,14 @@
 # Load data
-#inv.pnw <- readOGR("Datasets/Invasive/Invasive.clip.shp")
-inv <- readOGR("Datasets/Invasive/tbl/Inv.shp")
-inv.pnw <- inv
+inv.pnw <- readOGR("Datasets/Invasive/Invasive.clip.shp")
+#inv <- readOGR("Datasets/Invasive/tbl/Inv.shp")
+#inv.pnw <- inv
 
 # Transform projections
 fire.proj <- spTransform(fire.perim, projection(inv.pnw))
 ui.proj <- spTransform(ui, projection(inv.pnw))
 
 # Clip data to fire perimeter
-#inv <- crop(inv.pnw, fire.proj)
+inv <- crop(inv.pnw, fire.proj)
 #writeOGR(obj = inv, dsn= paste0(getwd(), "/Datasets/Invasive/tbl"), layer = "inv", driver = "ESRI Shapefile", overwrite_layer = T)
 
 # Find area of total invasive species range (considering multiple species) within UI
@@ -47,3 +47,4 @@ hist(scores.df$score.invasive, main="Distribution of Scores", xlab="Invasive Spe
 
 # Cleanup intermediates
 rm(inv.pnw, inv, fire.proj, ui.proj, inv.ui, inv.ui.area, inv.proj, ui.area, inv.df, col1, col2, col3, ui.over, ui.inv)
+

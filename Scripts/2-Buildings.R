@@ -29,7 +29,7 @@ usfs.proj <- spTransform(usfs.bldg, projection(fire.perim))
 nps.proj <- spTransform(nps.bldg, projection(fire.perim))
 comm.proj <- spTransform(comm, projection(fire.perim))
 plot(fire.perim, main = "Buildings - Values at Risk")
-plot(ui, col=(score.building > 0)*4, border=(score.building>0)*4, add=T)
+plot(ui, col=((scores.df$score.building + scores.df$score.comm) > 0)*4, border=((scores.df$score.building + scores.df$score.comm) > 0)*4, add=T)
 plot(fire.perim, add=T)
 plot(usfs.proj, pch=18, col="green", add=T)
 plot(nps.proj, col="pink", pch=18, add=T)
@@ -38,10 +38,26 @@ legend("topleft",
        legend = c("USFS buildings", "NPS buildings", "Comm. towers", "UI with buildings"), 
        fill = c("green", "pink", "orange", 4), cex = 0.9)
 
+# Plot UI importance by buildings
+dev.set(which = map.matrix)
+col1 <- colorRampPalette(c("green", "yellow", "orange", "red"))
+col2 <- col1(length(scores.df$score.building))
+col3 <- col2[rank(scores.df$score.building, ties.method = "min")]
+plot(fire.perim, main="Infrastructure: Buildings")
+plot(ui, add=T, col=col3, border=col3)
+
+
+# Plot UI importance by communication tower
+col2 <- col1(length(scores.df$score.comm))
+col3 <- col2[rank(scores.df$score.comm, ties.method = "min")]
+plot(fire.perim, main="Infrastructure: Comm. Towers")
+plot(ui, add=T, col=col3, border=col3)
+dev.set(which = 2)
+
 # Plot score distribution
 hist(ui@data$score.building, main="Distribution of Scores", 
-     xlab="Building score", breaks=seq(from=0, to=1, by=0.1), cex.axis=0.8, cex=0.9)
+     xlab="Building score", cex.axis=0.8, cex=0.9)
 
 # Cleanup intermediates
 rm(usfs.bldg, nps.bldg, comm, fire.proj, ui.proj, usfs.ui, nps.ui, comm.ui, 
-   usfs.sum, nps.sum, comm.sum, bldg.sums)
+   usfs.sum, nps.sum, comm.sum, bldg.sums, nps.proj, usfs.proj, comm.proj)
